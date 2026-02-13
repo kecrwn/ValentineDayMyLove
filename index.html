@@ -1,0 +1,522 @@
+<html lang="en" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Adelia | My Valentine</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    
+    <!-- Liquid Glass Script -->
+    <script src="https://www.aura.build/FxFilter.js"></script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        valentine: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'intro': 'animationIn 0.8s ease-out 0.1s both',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        animationIn: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)', filter: 'blur(8px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        body {
+            background-color: #fff1f2;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(353,96%,85%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(333,96%,85%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(353,96%,85%,1) 0, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Liquid Glass Styles */
+        .glass-panel {
+            --fx-filter: blur(12px) liquid-glass(2, 10) saturate(1.25);
+            -webkit-backdrop-filter: var(--fx-filter);
+            backdrop-filter: var(--fx-filter);
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Border Gradient */
+        .border-gradient {
+            position: relative;
+        }
+        .border-gradient::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            background: linear-gradient(225deg, rgba(255, 255, 255, 0.8) 0%, rgba(244, 63, 94, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        /* Floating Hearts Background */
+        .floating-heart {
+            position: fixed;
+            top: -10vh;
+            z-index: 0;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .reveal-active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            filter: blur(0) !important;
+        }
+    </style>
+</head>
+<body class="antialiased text-slate-800 min-h-screen selection:bg-rose-200 selection:text-rose-900">
+
+    <!-- INTRO OVERLAY (The Question) -->
+    <div id="intro-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 transition-all duration-1000 ease-in-out">
+        <!-- Blurred Background for Overlay -->
+        <div class="absolute inset-0 bg-white/60 backdrop-blur-xl z-0"></div>
+        
+        <div class="relative z-10 w-full max-w-md">
+            <div class="glass-panel rounded-2xl p-8 md:p-12 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-gradient animate-intro">
+                <div class="mb-6 flex justify-center">
+                    <div class="p-4 bg-rose-50 rounded-full text-rose-500 animate-bounce">
+                        <iconify-icon icon="solar:heart-angle-linear" width="48" stroke-width="1.5"></iconify-icon>
+                    </div>
+                </div>
+                
+                <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 mb-2">
+                    Hey Baby...
+                </h1>
+                <p class="text-slate-500 mb-8 text-sm md:text-base leading-relaxed">
+                    I have a very important question for you.
+                </p>
+
+                <h2 class="text-xl md:text-2xl font-semibold text-rose-600 mb-8 tracking-tight">
+                    Will you be my Valentine?
+                </h2>
+
+                <div class="flex flex-col gap-3 relative h-32 justify-center items-center">
+                    <button id="yes-btn" onclick="acceptValentine()" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-medium py-3 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-rose-200 hover:shadow-rose-300 transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2 group">
+                        <span>Yes, absolutely!</span>
+                        <iconify-icon icon="solar:heart-bold" class="group-hover:animate-ping"></iconify-icon>
+                    </button>
+                    
+                    <button id="no-btn" onmouseover="dodgeNo()" onclick="dodgeNo()" class="absolute bottom-0 text-slate-400 text-sm hover:text-rose-400 transition-colors py-2 px-4 rounded-lg">
+                        No, thanks
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT (Hidden initially) -->
+    <main id="main-content" class="relative z-10 opacity-0 pointer-events-none transition-opacity duration-1000">
+        
+        <!-- Navigation/Header -->
+        <nav class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center glass-panel border-b border-white/20">
+            <div class="text-xs font-semibold tracking-widest uppercase text-rose-500 flex items-center gap-1.5">
+                <span>Adelia</span>
+                <iconify-icon icon="solar:heart-bold" class="text-rose-600 animate-pulse" width="12"></iconify-icon>
+                <span>Krish</span>
+            </div>
+            
+            <div class="flex gap-4">
+                <iconify-icon icon="solar:music-note-linear" class="text-slate-400 hover:text-rose-500 transition-colors cursor-pointer" width="20"></iconify-icon>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="min-h-screen flex flex-col items-center justify-center pt-20 px-4 relative overflow-hidden">
+            <div class="absolute top-1/4 left-10 w-64 h-64 bg-rose-200/30 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+            <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-purple-200/30 rounded-full mix-blend-multiply filter blur-3xl animate-float-delayed"></div>
+
+            <div class="text-center max-w-2xl relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/50 border border-white/50 backdrop-blur-sm text-rose-500 text-xs font-medium mb-6 shadow-sm reveal-on-scroll">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                    </span>
+                    She said yes!
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-slate-900 mb-6 leading-[0.9] reveal-on-scroll" style="transition-delay: 100ms;">
+                    Happy Valentine's<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">Day, Baby.</span>
+                </h1>
+                
+                <p class="text-slate-600 text-lg md:text-xl leading-relaxed max-w-lg mx-auto mb-10 reveal-on-scroll" style="transition-delay: 200ms;">
+                    To the most beautiful girl in the world, <span class="font-medium text-slate-900">Adelia</span>. <br>
+                    Or as I like to call you... <span class="italic text-rose-500 font-medium">My Baby Gurl</span>.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto reveal-on-scroll" style="transition-delay: 300ms;">
+                    <div class="glass-panel p-4 rounded-2xl flex flex-col items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer group border-gradient">
+                        <iconify-icon icon="solar:heart-shine-linear" class="text-rose-500 group-hover:text-rose-600 transition-colors" width="32" stroke-width="1.5"></iconify-icon>
+                        <span class="text-xs font-medium text-slate-600">My Love</span>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl flex flex-col items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer group border-gradient">
+                        <iconify-icon icon="solar:star-fall-linear" class="text-purple-500 group-hover:text-purple-600 transition-colors" width="32" stroke-width="1.5"></iconify-icon>
+                        <span class="text-xs font-medium text-slate-600">My Everything</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-10 animate-bounce text-slate-400">
+                <iconify-icon icon="solar:arrow-down-linear" width="24"></iconify-icon>
+            </div>
+        </section>
+
+        <!-- Interactive Section -->
+        <section class="py-24 px-4 relative">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- REPLACED: Love Sync Dashboard (Abstract UI) -->
+                    <div class="relative group reveal-on-scroll order-last md:order-first">
+                        <div class="absolute inset-0 bg-gradient-to-br from-rose-200 to-purple-200 rounded-2xl transform -rotate-2 group-hover:-rotate-3 transition-transform duration-500 blur-sm opacity-60"></div>
+                        
+                        <div class="glass-panel rounded-2xl p-6 relative border-gradient bg-white/40">
+                            <!-- Card Header -->
+                            <div class="flex justify-between items-center mb-6 pb-4 border-b border-rose-100">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center text-rose-500">
+                                        <iconify-icon icon="solar:iphone-linear" width="16"></iconify-icon>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-semibold text-slate-800 uppercase tracking-wide">Sync Status</span>
+                                        <span class="text-[10px] text-slate-500 flex items-center gap-1">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                            Connected
+                                        </span>
+                                    </div>
+                                </div>
+                                <iconify-icon icon="solar:wifi-router-linear" class="text-slate-400" width="20"></iconify-icon>
+                            </div>
+
+                            <!-- Abstract Heartbeat Visual -->
+                            <div class="bg-gradient-to-br from-rose-50 to-white rounded-xl p-6 flex flex-col items-center justify-center relative overflow-hidden mb-6 h-48 border border-white">
+                                <!-- Background Pulse Rings -->
+                                <div class="absolute w-32 h-32 border border-rose-200 rounded-full animate-ping opacity-20"></div>
+                                <div class="absolute w-48 h-48 border border-rose-100 rounded-full animate-ping opacity-10" style="animation-delay: 0.5s"></div>
+                                
+                                <!-- Central Heart -->
+                                <div class="relative z-10 flex flex-col items-center">
+                                    <div class="relative">
+                                        <iconify-icon icon="solar:heart-bold" class="text-rose-500 animate-pulse" width="64"></iconify-icon>
+                                        <div class="absolute -top-1 -right-1">
+                                            <iconify-icon icon="solar:bolt-linear" class="text-yellow-400" width="24"></iconify-icon>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 flex items-center gap-2 text-rose-600 bg-rose-100/50 px-3 py-1 rounded-full text-xs font-medium">
+                                        <iconify-icon icon="solar:chart-square-linear"></iconify-icon>
+                                        <span>100% Match</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stats Row -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-white/50 p-3 rounded-xl border border-white/50">
+                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Heart Rate</div>
+                                    <div class="text-sm font-semibold text-slate-800 flex items-center gap-1">
+                                        120 BPM
+                                        <iconify-icon icon="solar:graph-up-linear" class="text-rose-500"></iconify-icon>
+                                    </div>
+                                </div>
+                                <div class="bg-white/50 p-3 rounded-xl border border-white/50">
+                                    <div class="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Vibe Check</div>
+                                    <div class="text-sm font-semibold text-slate-800 flex items-center gap-1">
+                                        Immaculate
+                                        <iconify-icon icon="solar:stars-linear" class="text-purple-500"></iconify-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 reveal-on-scroll">
+                        <div class="inline-flex items-center gap-2 text-rose-500 font-medium text-sm tracking-wide uppercase">
+                            <span class="w-8 h-[1px] bg-rose-500"></span>
+                            Just for you
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-semibold text-slate-900 tracking-tight">
+                            You're my favorite notification.
+                        </h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Every day with you feels like a page out of a fairy tale, but better because it's real. Your smile is my daily motivation, and your happiness is my priority.
+                        </p>
+                        
+                        <!-- Interactive Sliders -->
+                        <div class="space-y-4 pt-4">
+                            <div class="bg-white/40 rounded-xl p-4 border border-white/50">
+                                <div class="flex justify-between text-xs font-medium text-slate-700 mb-2">
+                                    <span>Cuteness Level</span>
+                                    <span>Overload</span>
+                                </div>
+                                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-400 w-[100%] rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white/40 rounded-xl p-4 border border-white/50">
+                                <div class="flex justify-between text-xs font-medium text-slate-700 mb-2">
+                                    <span>My Love For You</span>
+                                    <span>∞</span>
+                                </div>
+                                <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-rose-400 to-purple-500 w-[100%] rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reasons Grid -->
+        <section class="py-24 px-4 bg-white/30 backdrop-blur-sm">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 reveal-on-scroll">
+                    <h2 class="text-3xl font-semibold tracking-tight text-slate-900 mb-4">Why I Love My Baby Gurl</h2>
+                    <p class="text-slate-500">Just a few of the million reasons</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="glass-panel p-6 rounded-2xl hover:bg-white/60 transition-all duration-300 hover:-translate-y-1 group reveal-on-scroll" style="transition-delay: 100ms;">
+                        <div class="w-12 h-12 bg-rose-50 rounded-full flex items-center justify-center text-rose-500 mb-4 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:smile-circle-linear" width="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Your Smile</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">It literally lights up my entire world. When you're happy, I'm happy.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel p-6 rounded-2xl hover:bg-white/60 transition-all duration-300 hover:-translate-y-1 group reveal-on-scroll" style="transition-delay: 200ms;">
+                        <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center text-purple-500 mb-4 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:heart-pulse-linear" width="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Your Heart</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">You are so kind, caring, and sweet. You make me want to be a better man.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel p-6 rounded-2xl hover:bg-white/60 transition-all duration-300 hover:-translate-y-1 group reveal-on-scroll" style="transition-delay: 300ms;">
+                        <div class="w-12 h-12 bg-rose-50 rounded-full flex items-center justify-center text-rose-500 mb-4 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:cat-linear" width="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Just Being You</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Everything about you, Adelia, is perfect to me. Even when you're being silly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / Final Message -->
+        <footer class="py-20 px-4 text-center relative overflow-hidden">
+            <div class="relative z-10 reveal-on-scroll">
+                <div class="inline-block p-2 bg-white rounded-full shadow-sm mb-6 animate-pulse-slow">
+                    <iconify-icon icon="solar:heart-bold" class="text-rose-500" width="32"></iconify-icon>
+                </div>
+                <h2 class="text-2xl font-medium text-slate-900 mb-2">Adelia &amp; Krish</h2>
+                <p class="text-slate-500 text-sm">Forever &amp; Always</p>
+                
+                <div class="mt-8">
+                    <button onclick="confettiBomb()" class="text-xs font-semibold uppercase tracking-wider text-rose-400 hover:text-rose-600 transition-colors border-b border-rose-200 pb-1">
+                        Click for more love
+                    </button>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose-200 to-transparent"></div>
+        </footer>
+
+    </main>
+
+    <script>
+        // Interaction Logic
+        const introOverlay = document.getElementById('intro-overlay');
+        const mainContent = document.getElementById('main-content');
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+
+        // Dodge logic for "No" button
+        function dodgeNo() {
+            const maxX = 150; // Constrain movement to avoid going off screen easily
+            const maxY = 150;
+            
+            const randomX = Math.floor(Math.random() * maxX) - (maxX/2);
+            const randomY = Math.floor(Math.random() * maxY) - (maxY/2);
+            
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            
+            // Funny texts
+            const texts = ["Are you sure?", "Think again!", "Really?", "Don't do this!", "Miss click?", "Try the other one!"];
+            noBtn.innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        // Accept logic
+        function acceptValentine() {
+            // Trigger confetti
+            confettiBomb();
+            
+            // Fade out intro
+            introOverlay.style.opacity = '0';
+            introOverlay.style.pointerEvents = 'none';
+            
+            // Fade in main content
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+                mainContent.style.opacity = '1';
+                mainContent.style.pointerEvents = 'auto';
+                
+                // Initialize scroll animations
+                checkScroll();
+            }, 800);
+        }
+
+        function confettiBomb() {
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#f43f5e', '#fb7185', '#fda4af']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#f43f5e', '#fb7185', '#fda4af']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+            
+            // Heart burst
+            confetti({
+                particleCount: 80,
+                spread: 100,
+                origin: { y: 0.6 },
+                shapes: ['heart'],
+                colors: ['#f43f5e', '#e11d48', '#fda4af']
+            });
+        }
+
+        // Scroll Reveal Animation Script
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+
+        function checkScroll() {
+            const triggerBottom = window.innerHeight * 0.85;
+
+            revealElements.forEach((box) => {
+                const boxTop = box.getBoundingClientRect().top;
+                if (boxTop < triggerBottom) {
+                    box.style.opacity = '1';
+                    box.style.transform = 'translateY(0)';
+                    box.style.filter = 'blur(0)';
+                }
+            });
+        }
+
+        // Initialize styles for reveal elements
+        revealElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.filter = 'blur(10px)';
+            el.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+        });
+
+        window.addEventListener('scroll', checkScroll);
+
+        // Add background floating hearts
+        function createHearts() {
+            const container = document.body;
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '<iconify-icon icon="solar:heart-linear" style="color: rgba(244, 63, 94, 0.2);"></iconify-icon>';
+            
+            const startPos = Math.random() * 100;
+            const duration = Math.random() * 10 + 10; // 10-20s
+            const size = Math.random() * 20 + 10;
+            
+            heart.style.left = startPos + 'vw';
+            heart.style.animationDuration = duration + 's';
+            heart.style.fontSize = size + 'px';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createHearts, 1000);
+
+    </script>
+
+</body></html>
